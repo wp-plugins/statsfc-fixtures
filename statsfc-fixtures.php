@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/developers
 Description: StatsFC Fixtures
-Version: 1.0
+Version: 1.0.1
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -176,7 +176,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		echo $before_widget;
 		echo $before_title . $title . $after_title;
 
-		$data = file_get_contents('https://api.statsfc.com/' . esc_attr($competition) . '/fixtures.json?key=' . $api_key . (! empty($team) ? '&team=' . esc_attr($team)));
+		$data = file_get_contents('https://api.statsfc.com/' . esc_attr($competition) . '/fixtures.json?key=' . $api_key . (! empty($team) ? '&team=' . esc_attr($team) : ''));
 
 		try {
 			if (empty($data)) {
