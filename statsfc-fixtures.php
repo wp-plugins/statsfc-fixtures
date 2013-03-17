@@ -111,9 +111,8 @@ class StatsFC_Fixtures extends WP_Widget {
 					<select class="widefat" name="<?php echo $this->get_field_name('team'); ?>">
 						<option></option>
 						<?php
-						foreach ($json as $team) {
-							$value = str_replace(' ', '-', strtolower($team->name));
-							echo '<option value="' . esc_attr($value) . '"' . ($value == $team ? ' selected' : '') . '>' . esc_attr($team->name) . '</option>' . PHP_EOL;
+						foreach ($json as $row) {
+							echo '<option' . ($row->name == $team ? ' selected' : '') . '>' . esc_attr($row->name) . '</option>' . PHP_EOL;
 						}
 						?>
 					</select>
