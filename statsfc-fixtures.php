@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/developers
 Description: StatsFC Fixtures
-Version: 1.0.1
+Version: 1.0.2
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -65,7 +65,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		$title			= strip_tags($instance['title']);
 		$api_key		= strip_tags($instance['api_key']);
 		$competition	= strip_tags($instance['competition']);
-		$highlight		= strip_tags($instance['highlight']);
+		$team			= strip_tags($instance['team']);
 		$default_css	= strip_tags($instance['default_css']);
 		?>
 		<p>
@@ -108,19 +108,19 @@ class StatsFC_Fixtures extends WP_Widget {
 						throw new Exception($json->error);
 					}
 					?>
-					<select class="widefat" name="<?php echo $this->get_field_name('highlight'); ?>">
+					<select class="widefat" name="<?php echo $this->get_field_name('team'); ?>">
 						<option></option>
 						<?php
 						foreach ($json as $team) {
 							$value = str_replace(' ', '-', strtolower($team->name));
-							echo '<option value="' . esc_attr($value) . '"' . ($value == $highlight ? ' selected' : '') . '>' . esc_attr($team->name) . '</option>' . PHP_EOL;
+							echo '<option value="' . esc_attr($value) . '"' . ($value == $team ? ' selected' : '') . '>' . esc_attr($team->name) . '</option>' . PHP_EOL;
 						}
 						?>
 					</select>
 				<?php
 				} catch (Exception $e) {
 				?>
-					<input class="widefat" name="<?php echo $this->get_field_name('highlight'); ?>" type="text" value="<?php echo esc_attr($highlight); ?>">
+					<input class="widefat" name="<?php echo $this->get_field_name('team'); ?>" type="text" value="<?php echo esc_attr($team); ?>">
 				<?php
 				}
 				?>
