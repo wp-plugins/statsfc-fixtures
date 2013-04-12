@@ -1,4 +1,4 @@
-.statsfc_fixtures table {				display: table; width: 100%; border-collapse: collapse; border: 1px solid silver; }
+.statsfc_fixtures table {				display: table; width: 100%; border-collapse: collapse; border: 1px solid silver; margin-bottom: 0; }
 .statsfc_fixtures th,
 .statsfc_fixtures td {					text-align: left; padding: 2px 5px; border-bottom: 1px solid silver; }
 .statsfc_fixtures .statsfc_home,
@@ -7,4 +7,4 @@
 .statsfc_fixtures .statsfc_vs {			text-align: center; }
 .statsfc_fixtures .statsfc_highlight {	font-weight: bold; }
 .statsfc_fixtures .statsfc_status {		font-weight: normal; float: left; }
-.statsfc_fixtures .statsfc_footer {		display: block !important; text-align: right; }
+.statsfc_fixtures .statsfc_footer {		display: block !important; text-align: right; margin-top: 0; padding: 2px 5px; }
