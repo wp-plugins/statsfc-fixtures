@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: StatsFC Fixtures
-Plugin URI: https://statsfc.com/developers
+Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
 Version: 1.1.1
 Author: Will Woodward
