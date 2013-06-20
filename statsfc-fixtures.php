@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.1.1
+Version: 1.2
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -243,7 +243,7 @@ class StatsFC_Fixtures extends WP_Widget {
 						?>
 						<tr>
 							<td class="statsfc_home<?php echo ($team == $fixture->home ? ' statsfc_highlight' : ''); ?>">
-								<span class="statsfc_status"><?php echo date('H:i', strtotime($fixture->date)); ?></span>
+								<span class="statsfc_status"><?php echo self::_convertDate($fixture->date, 'H:i'); ?></span>
 								<?php echo esc_attr($fixture->homeshort); ?>
 							</td>
 							<td class="statsfc_vs">-</td>
@@ -262,6 +262,13 @@ class StatsFC_Fixtures extends WP_Widget {
 		}
 
 		echo $after_widget;
+	}
+
+	private static function _convertDate($timestamp, $format) {
+		$datetime = new DateTime($timestamp, new DateTimeZone('GMT'));
+		$datetime->setTimezone(new DateTimeZone(get_option('timezone_string')));
+
+		return $datetime->format($format);
 	}
 }
 

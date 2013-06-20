@@ -4,7 +4,7 @@ Donate link:
 Tags: widget, football, soccer, fixtures, premier league, fa cup, league cup
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,6 +50,8 @@ If you want to place the widget into a page rather than a sidebar:
 **1.1**: Added a setting for number of fixtures. Applies to single team only. Choose '0' to display all fixtures.
 
 **1.1.1**: Fixed a bug when selecting a specific team.
+
+**1.2**: Automatically adjust kick-off times according to your site's timezone setting.
 
 == Upgrade notice ==
 
