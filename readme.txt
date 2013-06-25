@@ -4,7 +4,7 @@ Donate link:
 Tags: widget, football, soccer, fixtures, premier league, fa cup, league cup
 Requires at least: 3.3
 Tested up to: 3.5.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,17 +41,35 @@ If you want to place the widget into a page rather than a sidebar:
 
 == Changelog ==
 
-**1.0.1**: Fixed syntax error.
+**1.0.1**:
 
-**1.0.2**: Fixed 'Team' setting bug.
+- Fixed syntax error.
 
-**1.0.3**: If showing fixtures for a single team, highlight that team.
+**1.0.2**:
 
-**1.1**: Added a setting for number of fixtures. Applies to single team only. Choose '0' to display all fixtures.
+- Fixed 'Team' setting bug.
 
-**1.1.1**: Fixed a bug when selecting a specific team.
+**1.0.3**:
 
-**1.2**: Automatically adjust kick-off times according to your site's timezone setting.
+- If showing fixtures for a single team, highlight that team.
+
+**1.1**:
+
+- Added a setting for number of fixtures. Applies to single team only. Choose '0' to display all fixtures.
+
+**1.1.1**:
+
+- Fixed a bug when selecting a specific team.
+
+**1.2**:
+
+- Automatically adjust kick-off times according to your site's timezone setting.
+
+**1.2.1**:
+
+- Fixed timezone adjustment bug in old versions of PHP.
+- If using an old version, you'll need to choose your own UTC offset in the options.
+- Added Community Shield fixtures.
 
 == Upgrade notice ==
 

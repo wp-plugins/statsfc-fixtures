@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.2
+Version: 1.2.1
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -35,8 +35,11 @@ class StatsFC_Fixtures extends WP_Widget {
 	private static $_competitions = array(
 		'premier-league'	=> 'Premier League',
 		'fa-cup'			=> 'FA Cup',
-		'league-cup'		=> 'League Cup'
+		'league-cup'		=> 'League Cup',
+		'community-shield'	=> 'Community Shield'
 	);
+
+	private static $_offsets = array('-12:00', '-11:00', '-10:00', '-09:30', '-09:00', '-08:00', '-07:00', '-06:00', '-05:00', '-04:30', '-04:00', '-03:30', '-03:00', '-02:00', '-01:00', '00:00', '+01:00', '+02:00', '+03:00', '+03:30', '+04:00', '+04:30', '+05:00', '+05:30', '+05:45', '+06:00', '+06:30', '+07:00', '+08:00', '+08:45', '+09:00', '+09:30', '+10:00', '+10:30', '+11:00', '+11:30', '+12:00', '+12:45', '+13:00', '+14:00');
 
 	/**
 	 * Register widget with WordPress.
@@ -59,6 +62,7 @@ class StatsFC_Fixtures extends WP_Widget {
 			'competition'	=> __(current(array_keys(self::$_competitions)), STATSFC_FIXTURES_ID),
 			'team'			=> __('', STATSFC_FIXTURES_ID),
 			'limit'			=> __(5, STATSFC_FIXTURES_ID),
+			'tz_offset'		=> __('00:00', STATSFC_FIXTURES_ID),
 			'default_css'	=> __('', STATSFC_FIXTURES_ID)
 		);
 
@@ -68,6 +72,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		$competition	= strip_tags($instance['competition']);
 		$team			= strip_tags($instance['team']);
 		$limit			= strip_tags($instance['limit']);
+		$tz_offset		= strip_tags($instance['tz_offset']);
 		$default_css	= strip_tags($instance['default_css']);
 		?>
 		<p>
@@ -134,6 +139,24 @@ class StatsFC_Fixtures extends WP_Widget {
 				<small>Applies to single team only. Choose '0' for all fixtures.</small>
 			</label>
 		</p>
+		<?php
+		if (! class_exists('DateTime')) {
+		?>
+			<p>
+				<label>
+					<?php _e('UTC offset', STATSFC_FIXTURES_ID); ?>:
+					<select class="widefat" name="<?php echo $this->get_field_name('tz_offset'); ?>">
+						<?php
+						foreach (self::$_offsets as $offset) {
+							echo '<option value="' . esc_attr($offset) . '"' . ($offset == $tz_offset ? ' selected' : '') . '>' . esc_attr($offset) . '</option>' . PHP_EOL;
+						}
+						?>
+					</select>
+				</label>
+			</p>
+		<?php
+		}
+		?>
 		<p>
 			<label>
 				<?php _e('Use default CSS?', STATSFC_FIXTURES_ID); ?>
@@ -160,6 +183,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		$instance['competition']	= strip_tags($new_instance['competition']);
 		$instance['team']			= strip_tags($new_instance['team']);
 		$instance['limit']			= strip_tags($new_instance['limit']);
+		$instance['tz_offset']		= strip_tags($new_instance['tz_offset']);
 		$instance['default_css']	= strip_tags($new_instance['default_css']);
 
 		return $instance;
@@ -181,6 +205,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		$competition	= $instance['competition'];
 		$team			= $instance['team'];
 		$limit			= (int) $instance['limit'];
+		$tz_offset		= $instance['tz_offset'];
 		$default_css	= $instance['default_css'];
 
 		if (empty($team)) {
@@ -234,7 +259,7 @@ class StatsFC_Fixtures extends WP_Widget {
 							?>
 							<thead>
 								<tr>
-									<th colspan="3"><?php echo date('l, j F Y', strtotime($fixture->date)); ?></th>
+									<th colspan="3"><?php echo self::_convertDate($fixture->date, 'l, j F Y', $tz_offset); ?></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -243,7 +268,7 @@ class StatsFC_Fixtures extends WP_Widget {
 						?>
 						<tr>
 							<td class="statsfc_home<?php echo ($team == $fixture->home ? ' statsfc_highlight' : ''); ?>">
-								<span class="statsfc_status"><?php echo self::_convertDate($fixture->date, 'H:i'); ?></span>
+								<span class="statsfc_status"><?php echo self::_convertDate($fixture->date, 'H:i', $tz_offset); ?></span>
 								<?php echo esc_attr($fixture->homeshort); ?>
 							</td>
 							<td class="statsfc_vs">-</td>
@@ -264,7 +289,11 @@ class StatsFC_Fixtures extends WP_Widget {
 		echo $after_widget;
 	}
 
-	private static function _convertDate($timestamp, $format) {
+	private static function _convertDate($timestamp, $format, $offset) {
+		if (! class_exists('DateTime')) {
+			return date($format, strtotime($timestamp . ' ' . ($offset[0] == '-' ? '+' : '-') . substr($offset, 1)));
+		}
+
 		$datetime = new DateTime($timestamp, new DateTimeZone('GMT'));
 		$datetime->setTimezone(new DateTimeZone(get_option('timezone_string')));
 
