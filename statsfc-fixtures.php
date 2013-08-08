@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.2.1
+Version: 1.2.2
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -103,9 +103,9 @@ class StatsFC_Fixtures extends WP_Widget {
 			<label>
 				<?php _e('Team', STATSFC_FIXTURES_ID); ?>:
 				<?php
-				$data = file_get_contents('https://api.statsfc.com/premier-league/teams.json?key=' . (! empty($api_key) ? $api_key : 'free'));
-
 				try {
+					$data = $this->_fetchData('https://api.statsfc.com/premier-league/teams.json?key=' . (! empty($api_key) ? $api_key : 'free'));
+
 					if (empty($data)) {
 						throw new Exception('There was an error connecting to the StatsFC API');
 					}
@@ -215,9 +215,9 @@ class StatsFC_Fixtures extends WP_Widget {
 		echo $before_widget;
 		echo $before_title . $title . $after_title;
 
-		$data = file_get_contents('https://api.statsfc.com/' . esc_attr($competition) . '/fixtures.json?key=' . $api_key . (! empty($limit) ? '&limit=' . $limit : '') . (! empty($team) ? '&team=' . esc_attr($team) : ''));
-
 		try {
+			$data = $this->_fetchData('https://api.statsfc.com/' . esc_attr($competition) . '/fixtures.json?key=' . $api_key . (! empty($limit) ? '&limit=' . $limit : '') . (! empty($team) ? '&team=' . esc_attr($team) : ''));
+
 			if (empty($data)) {
 				throw new Exception('There was an error connecting to the StatsFC API');
 			}
@@ -289,6 +289,28 @@ class StatsFC_Fixtures extends WP_Widget {
 		echo $after_widget;
 	}
 
+	private function _fetchData($url) {
+		if (function_exists('curl_exec')) {
+			$ch = curl_init();
+
+			curl_setopt_array($ch, array(
+				CURLOPT_AUTOREFERER		=> true,
+				CURLOPT_FOLLOWLOCATION	=> true,
+				CURLOPT_HEADER			=> false,
+				CURLOPT_RETURNTRANSFER	=> true,
+				CURLOPT_TIMEOUT			=> 5,
+				CURLOPT_URL				=> $url
+			));
+
+			$data = curl_exec($ch);
+			curl_close($ch);
+
+			return $data;
+		}
+
+		return file_get_contents($url);
+	}
+
 	private static function _convertDate($timestamp, $format, $offset) {
 		if (! class_exists('DateTime')) {
 			return date($format, strtotime($timestamp . ' ' . ($offset[0] == '-' ? '+' : '-') . substr($offset, 1)));
@@ -303,4 +325,3 @@ class StatsFC_Fixtures extends WP_Widget {
 
 // register StatsFC widget
 add_action('widgets_init', create_function('', 'register_widget("' . STATSFC_FIXTURES_ID . '");'));
-?>
