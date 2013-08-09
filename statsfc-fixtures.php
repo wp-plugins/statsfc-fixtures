@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.2.2
+Version: 1.2.3
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -295,7 +295,6 @@ class StatsFC_Fixtures extends WP_Widget {
 
 			curl_setopt_array($ch, array(
 				CURLOPT_AUTOREFERER		=> true,
-				CURLOPT_FOLLOWLOCATION	=> true,
 				CURLOPT_HEADER			=> false,
 				CURLOPT_RETURNTRANSFER	=> true,
 				CURLOPT_TIMEOUT			=> 5,
