@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.2.4
+Version: 1.2.5
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -140,7 +140,7 @@ class StatsFC_Fixtures extends WP_Widget {
 			</label>
 		</p>
 		<?php
-		if (! class_exists('DateTime')) {
+		if (! self::_timezone()) {
 		?>
 			<p>
 				<label>
@@ -323,14 +323,30 @@ class StatsFC_Fixtures extends WP_Widget {
 	}
 
 	private static function _convertDate($timestamp, $format, $offset) {
-		if (! class_exists('DateTime')) {
+		if (! ($timezone = self::_timezone())) {
 			return date($format, strtotime($timestamp . ' ' . ($offset[0] == '-' ? '+' : '-') . substr($offset, 1)));
 		}
 
 		$datetime = new DateTime($timestamp, new DateTimeZone('GMT'));
-		$datetime->setTimezone(new DateTimeZone(get_option('timezone_string')));
+		$datetime->setTimezone(new DateTimeZone($timezone));
 
 		return $datetime->format($format);
+	}
+
+	private static function _timezone() {
+		if (! class_exists('DateTime')) {
+			return false;
+		}
+
+		$timezone = get_option('timezone_string');
+
+		try {
+			$dtz = new DateTimeZone($timezone);
+		} catch (Exception $e) {
+			return false;
+		}
+
+		return $timezone;
 	}
 }
 
