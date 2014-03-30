@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.3
+Version: 1.4
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -32,15 +32,6 @@ define('STATSFC_FIXTURES_NAME',	'StatsFC Fixtures');
  * Adds StatsFC widget.
  */
 class StatsFC_Fixtures extends WP_Widget {
-	private static $competitions = array(
-		'EPL'	=> 'England Premier League',
-		'ICL'	=> 'UEFA Champions League',
-		'IEL'	=> 'UEFA Europa League',
-		'EFC'	=> 'England FA Cup',
-		'ELC'	=> 'England League Cup',
-		'ECS'	=> 'England Community Shield'
-	);
-
 	/**
 	 * Register widget with WordPress.
 	 */
@@ -59,8 +50,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		$defaults = array(
 			'title'			=> __('Fixtures', STATSFC_FIXTURES_ID),
 			'api_key'		=> __('', STATSFC_FIXTURES_ID),
-			'competition'	=> __(current(array_keys(self::$competitions)), STATSFC_FIXTURES_ID),
-			'group'			=> __('', STATSFC_FIXTURES_ID),
+			'competition'	=> __('', STATSFC_FIXTURES_ID),
 			'team'			=> __('', STATSFC_FIXTURES_ID),
 			'from'			=> __('', STATSFC_FIXTURES_ID),
 			'to'			=> __('', STATSFC_FIXTURES_ID),
@@ -73,7 +63,6 @@ class StatsFC_Fixtures extends WP_Widget {
 		$title			= strip_tags($instance['title']);
 		$api_key		= strip_tags($instance['api_key']);
 		$competition	= strip_tags($instance['competition']);
-		$group			= strip_tags($instance['group']);
 		$team			= strip_tags($instance['team']);
 		$from			= strip_tags($instance['from']);
 		$to				= strip_tags($instance['to']);
@@ -96,20 +85,35 @@ class StatsFC_Fixtures extends WP_Widget {
 		<p>
 			<label>
 				<?php _e('Competition', STATSFC_FIXTURES_ID); ?>:
-				<select name="<?php echo $this->get_field_name('competition'); ?>">
-					<option value="">All</option>
-					<?php
-					foreach (self::$competitions as $key => $name) {
-						echo '<option value="' . esc_attr($key) . '"' . ($key == $competition ? ' selected' : '') . '>' . esc_attr($name) . '</option>' . PHP_EOL;
+				<?php
+				try {
+					$data = $this->_fetchData('https://api.statsfc.com/crowdscores/competitions.php');
+
+					if (empty($data)) {
+						throw new Exception;
+					}
+
+					$json = json_decode($data);
+
+					if (isset($json->error)) {
+						throw new Exception;
 					}
 					?>
-				</select>
-			</label>
-		</p>
-		<p>
-			<label>
-				<?php _e('Group', STATSFC_FIXTURES_ID); ?>:
-				<input class="widefat" name="<?php echo $this->get_field_name('group'); ?>" type="text" value="<?php echo esc_attr($group); ?>" placeholder="e.g., A, B">
+					<select class="widefat" name="<?php echo $this->get_field_name('competition'); ?>">
+						<option></option>
+						<?php
+						foreach ($json as $comp) {
+							echo '<option value="' . esc_attr($comp->key) . '"' . ($comp->key == $competition ? ' selected' : '') . '>' . esc_attr($comp->name) . '</option>' . PHP_EOL;
+						}
+						?>
+					</select>
+				<?php
+				} catch (Exception $e) {
+				?>
+					<input class="widefat" name="<?php echo $this->get_field_name('competition'); ?>" type="text" value="<?php echo esc_attr($competition); ?>">
+				<?php
+				}
+				?>
 			</label>
 		</p>
 		<p>
@@ -175,7 +179,6 @@ class StatsFC_Fixtures extends WP_Widget {
 		$instance['title']			= strip_tags($new_instance['title']);
 		$instance['api_key']		= strip_tags($new_instance['api_key']);
 		$instance['competition']	= strip_tags($new_instance['competition']);
-		$instance['group']			= strip_tags($new_instance['group']);
 		$instance['team']			= strip_tags($new_instance['team']);
 		$instance['from']			= strip_tags($new_instance['from']);
 		$instance['to']				= strip_tags($new_instance['to']);
@@ -200,7 +203,6 @@ class StatsFC_Fixtures extends WP_Widget {
 		$title			= apply_filters('widget_title', $instance['title']);
 		$api_key		= $instance['api_key'];
 		$competition	= $instance['competition'];
-		$group			= $instance['group'];
 		$team			= $instance['team'];
 		$from			= $instance['from'];
 		$to				= $instance['to'];
@@ -212,11 +214,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		echo $before_title . $title . $after_title;
 
 		try {
-			if (strlen($competition) == 0 && strlen($team) == 0) {
-				throw new Exception('Please choose a competition and/or team from the widget options');
-			}
-
-			$data = $this->_fetchData('https://api.statsfc.com/widget/fixtures.json.php?key=' . urlencode($api_key) . '&competition=' . urlencode($competition) . '&group=' . urlencode($group) . '&team=' . urlencode($team) . '&from=' . urlencode($from) . '&to=' . urlencode($to) . '&limit=' . urlencode($limit) . '&timezone=' . urlencode($timezone));
+			$data = $this->_fetchData('https://api.statsfc.com/crowdscores/fixtures.php?key=' . urlencode($api_key) . '&competition=' . urlencode($competition) . '&team=' . urlencode($team) . '&from=' . urlencode($from) . '&to=' . urlencode($to) . '&limit=' . urlencode($limit) . '&timezone=' . urlencode($timezone));
 
 			if (empty($data)) {
 				throw new Exception('There was an error connecting to the StatsFC API');
@@ -228,7 +226,7 @@ class StatsFC_Fixtures extends WP_Widget {
 				throw new Exception($json->error);
 			}
 
-			$fixtures	= $json->fixtures;
+			$fixtures	= $json->matches;
 			$customer	= $json->customer;
 
 			if ($default_css) {
@@ -252,16 +250,23 @@ class StatsFC_Fixtures extends WP_Widget {
 								foreach ($matches as $match) {
 								?>
 									<tr>
-										<td class="statsfc_team statsfc_home statsfc_badge" style="background-image: url(//api.statsfc.com/kit/<?php echo esc_attr($match->homepath); ?>.png);">
+										<td class="statsfc_team statsfc_home statsfc_badge"<?php echo ($default_css ? ' style="background-image: url(//api.statsfc.com/kit/' . esc_attr($match->homepath) . '.png);"' : ''); ?>>
 											<span class="statsfc_status"><?php echo esc_attr($match->status); ?></span>
 											<?php echo esc_attr($match->home); ?>
 										</td>
 										<td class="statsfc_vs">-</td>
-										<td class="statsfc_team statsfc_away statsfc_badge" style="background-image: url(//api.statsfc.com/kit/<?php echo esc_attr($match->awaypath); ?>.png);">
-											<?php echo esc_attr($match->away); ?>
-											<span class="statsfc_competition">
-												<abbr title="<?php echo esc_attr($match->competition); ?>"><?php echo esc_attr($match->competitionkey); ?></abbr>
-											</span>
+										<td class="statsfc_team statsfc_away statsfc_badge"<?php echo ($default_css ? ' style="background-image: url(//api.statsfc.com/kit/' . esc_attr($match->awaypath) . '.png);"' : ''); ?>>
+											<?php
+											echo esc_attr($match->away);
+
+											if (strlen($competition) == 0) {
+											?>
+												<span class="statsfc_competition">
+													<abbr title="<?php echo esc_attr($match->competition); ?>"><?php echo esc_attr($match->competitionkey); ?></abbr>
+												</span>
+											<?php
+											}
+											?>
 										</td>
 									</tr>
 								<?php
@@ -274,19 +279,11 @@ class StatsFC_Fixtures extends WP_Widget {
 					?>
 				</div>
 
-				<?php
-				if ($customer->advert) {
-				?>
-					<p class="statsfc_footer"><small>Powered by StatsFC.com</small></p>
-				<?php
-				}
-				?>
+				<p class="statsfc_footer">Powered by StatsFC.com. Fan data via CrowdScores.com</p>
 			</div>
 		<?php
 		} catch (Exception $e) {
-		?>
-			<p>StatsFC.com – <?php echo esc_attr($e->getMessage()); ?></p>
-		<?php
+			echo '<p style="text-align: center;">StatsFC.com – ' . esc_attr($e->getMessage()) .'</p>' . PHP_EOL;
 		}
 
 		echo $after_widget;

@@ -41,59 +41,33 @@ If you want to place the widget into a page rather than a sidebar:
 
 == Changelog ==
 
-**1.0.1**:
+**1.0.1**: Fixed syntax error.
 
-- Fixed syntax error.
+**1.0.2**: Fixed 'Team' setting bug.
 
-**1.0.2**:
+**1.0.3**: If showing fixtures for a single team, highlight that team.
 
-- Fixed 'Team' setting bug.
+**1.1**: Added a setting for number of fixtures. Applies to single team only. Choose '0' to display all fixtures.
 
-**1.0.3**:
+**1.1.1**: Fixed a bug when selecting a specific team.
 
-- If showing fixtures for a single team, highlight that team.
+**1.2**: Automatically adjust kick-off times according to your site's timezone setting.
 
-**1.1**:
+**1.2.1**: Fixed timezone adjustment bug in old versions of PHP. If using an old version, you'll need to choose your own UTC offset in the options. Added Community Shield fixtures.
 
-- Added a setting for number of fixtures. Applies to single team only. Choose '0' to display all fixtures.
+**1.2.2**: Use cURL to fetch API data if possible.
 
-**1.1.1**:
+**1.2.3**: Fixed possible cURL bug.
 
-- Fixed a bug when selecting a specific team.
+**1.2.4**: Added fopen fallback if cURL request fails.
 
-**1.2**:
+**1.2.5**: Fixed possible Timezone bug.
 
-- Automatically adjust kick-off times according to your site's timezone setting.
+**1.2.6**: Tweaked error message.
 
-**1.2.1**:
+**1.3**: Allow an actual timezone to be selected, and use the new API.
 
-- Fixed timezone adjustment bug in old versions of PHP.
-- If using an old version, you'll need to choose your own UTC offset in the options.
-- Added Community Shield fixtures.
-
-**1.2.2**:
-
-- Use cURL to fetch API data if possible.
-
-**1.2.3**:
-
-- Fixed possible cURL bug.
-
-**1.2.4**:
-
-- Added fopen fallback if cURL request fails.
-
-**1.2.5**:
-
-- Fixed possible Timezone bug.
-
-**1.2.6**:
-
-- Tweaked error message.
-
-**1.3**:
-
-- Allow an actual timezone to be selected, and use the new API.
+**1.4**: Updated to use the new API.
 
 == Upgrade notice ==
 
