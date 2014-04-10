@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.4
+Version: 1.4.1
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -279,7 +279,7 @@ class StatsFC_Fixtures extends WP_Widget {
 					?>
 				</div>
 
-				<p class="statsfc_footer">Powered by StatsFC.com. Fan data via CrowdScores.com</p>
+				<p class="statsfc_footer"><small>Powered by StatsFC.com. Fan data via CrowdScores.com</small></p>
 			</div>
 		<?php
 		} catch (Exception $e) {
