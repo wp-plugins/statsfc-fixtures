@@ -1,6 +1,6 @@
-.statsfc_fixtures table {					display: table; width: 100%; border-collapse: collapse; border: 1px solid silver; }
+.statsfc_fixtures table {					display: table; width: 100%; border-collapse: collapse; }
 .statsfc_fixtures th,
-.statsfc_fixtures td {						text-align: left; padding: 2px 5px; border-bottom: 1px solid silver; }
+.statsfc_fixtures td {						text-align: left; padding: 2px 5px; }
 .statsfc_fixtures thead th {				text-transform: uppercase; font-size: small; background-color: silver; }
 .statsfc_fixtures .statsfc_team {			width: 50%; }
 .statsfc_fixtures .statsfc_home {			text-align: right; }

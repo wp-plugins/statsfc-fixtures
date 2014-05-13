@@ -4,7 +4,7 @@ Donate link:
 Tags: widget, football, soccer, fixtures, premier league, fa cup, league cup
 Requires at least: 3.3
 Tested up to: 3.9
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,8 @@ If you want to place the widget into a page rather than a sidebar:
 **1.3**: Allow an actual timezone to be selected, and use the new API.
 
 **1.4**: Updated to use the new API.
+
+**1.4.2**: Tweaked CSS.
 
 == Upgrade notice ==
 
