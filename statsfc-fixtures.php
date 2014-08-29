@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.5.2
+Version: 1.5.3
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -43,7 +43,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		'to'			=> '',
 		'limit'			=> 0,
 		'timezone'		=> 'Europe/London',
-		'default_css'	=> ''
+		'default_css'	=> true
 	);
 
 	/**
@@ -210,7 +210,7 @@ class StatsFC_Fixtures extends WP_Widget {
 		$to				= $instance['to'];
 		$limit			= (int) $instance['limit'];
 		$timezone		= $instance['timezone'];
-		$default_css	= $instance['default_css'];
+		$default_css	= filter_var($instance['default_css'], FILTER_VALIDATE_BOOLEAN);
 
 		$html  = $before_widget;
 		$html .= $before_title . $title . $after_title;

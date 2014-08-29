@@ -4,7 +4,7 @@ Donate link:
 Tags: widget, football, soccer, fixtures, premier league, fa cup, league cup
 Requires at least: 3.3
 Tested up to: 3.9
-Stable tag: 1.5.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -79,6 +79,8 @@ You can also use the `[statsfc-fixtures]` shortcode, with the following options:
 **1.5**: Added `[statsfc-fixtures]` shortcode.
 
 **1.5.2**: Updated team badges.
+
+**1.5.3**: Default `default_css` parameter to `true`
 
 == Upgrade notice ==
 
