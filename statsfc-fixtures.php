@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.5.3
+Version: 1.5.4
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -255,6 +255,8 @@ HTML;
 HTML;
 
 				foreach ($matches as $match) {
+					$homePath		= esc_attr($match->homepath);
+					$awayPath		= esc_attr($match->awaypath);
 					$homeBadge		= '';
 					$awayBadge		= '';
 					$status			= esc_attr($match->status);
@@ -263,8 +265,8 @@ HTML;
 					$competitionKey	= '';
 
 					if ($default_css) {
-						$homeBadge	= ' style="background-image: url(//api.statsfc.com/kit/' . esc_attr($match->homepath) . '.svg);"';
-						$awayBadge	= ' style="background-image: url(//api.statsfc.com/kit/' . esc_attr($match->awaypath) . '.svg);"';
+						$homeBadge	= ' style="background-image: url(//api.statsfc.com/kit/' . $homePath . '.svg);"';
+						$awayBadge	= ' style="background-image: url(//api.statsfc.com/kit/' . $awayPath . '.svg);"';
 					}
 
 					if (strlen($competition) == 0) {
@@ -273,12 +275,12 @@ HTML;
 
 					$html .= <<< HTML
 					<tr>
-						<td class="statsfc_team statsfc_home statsfc_badge"{$homeBadge}>
+						<td class="statsfc_team statsfc_home statsfc_badge statsfc_badge_{$homePath}"{$homeBadge}>
 							<span class="statsfc_status">{$status}</span>
 							{$home}
 						</td>
 						<td class="statsfc_vs">-</td>
-						<td class="statsfc_team statsfc_away statsfc_badge"{$awayBadge}>
+						<td class="statsfc_team statsfc_away statsfc_badge statsfc_badge_{$awayPath}"{$awayBadge}>
 							{$away}
 							{$competitionKey}
 						</td>
