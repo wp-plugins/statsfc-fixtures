@@ -12,9 +12,9 @@ This widget will place list of Premier League, FA Cup or League Cup fixtures in 
 
 == Description ==
 
-Add a list of Premier League, FA Cup or League Cup fixtures to your WordPress website. To request an API key sign up for free at [statsfc.com](https://statsfc.com).
+Add a list of Premier League, FA Cup or League Cup fixtures to your WordPress website. To request a key sign up for your free trial at [statsfc.com](https://statsfc.com).
 
-For a demo, check out [wp.statsfc.com](http://wp.statsfc.com).
+For a demo, check out [wp.statsfc.com/fixtures/](http://wp.statsfc.com/fixtures/).
 
 == Installation ==
 
