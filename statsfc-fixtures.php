@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/docs/wordpress
 Description: StatsFC Fixtures
-Version: 1.6
+Version: 1.6.1
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
