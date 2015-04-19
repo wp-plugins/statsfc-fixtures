@@ -8,7 +8,6 @@
 .statsfc_fixtures span {					color: silver; }
 .statsfc_fixtures .statsfc_status {			font-weight: normal; float: left; }
 .statsfc_fixtures .statsfc_competition {	font-weight: normal; float: right; }
-.statsfc_fixtures .statsfc_ad {				display: block !important; text-align: center; margin-top: 10px; }
 .statsfc_fixtures .statsfc_footer {			display: block !important; text-align: right; }
 
 .statsfc_fixtures .statsfc_badge {			background-repeat: no-repeat; background-size: 20px 20px; line-height: 25px; }
