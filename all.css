@@ -1,15 +1,15 @@
-.statsfc_fixtures table {					display: table; width: 100%; border-collapse: collapse; }
-.statsfc_fixtures th,
-.statsfc_fixtures td {						text-align: left; padding: 2px 5px; }
-.statsfc_fixtures thead th {				text-transform: uppercase; font-size: small; background-color: silver; }
-.statsfc_fixtures .statsfc_team {			width: 50%; }
-.statsfc_fixtures .statsfc_home {			text-align: right; }
-.statsfc_fixtures .statsfc_vs {				text-align: center; }
-.statsfc_fixtures span {					color: silver; }
-.statsfc_fixtures .statsfc_status {			font-weight: normal; float: left; }
-.statsfc_fixtures .statsfc_competition {	font-weight: normal; float: right; }
-.statsfc_fixtures .statsfc_footer {			display: block !important; text-align: right; }
+.sfc_fixtures table {            display: table; width: 100%; border-collapse: collapse; }
+.sfc_fixtures th,
+.sfc_fixtures td {               text-align: left; padding: 2px 5px; }
+.sfc_fixtures thead th {         text-transform: uppercase; font-size: small; background-color: silver; }
+.sfc_fixtures .sfc_team {        width: 50%; }
+.sfc_fixtures .sfc_home {        text-align: right; }
+.sfc_fixtures .sfc_vs {          text-align: center; }
+.sfc_fixtures span {             color: silver; }
+.sfc_fixtures .sfc_status {      font-weight: normal; float: left; }
+.sfc_fixtures .sfc_competition { font-weight: normal; float: right; }
+.sfc_fixtures .sfc_footer {      display: block !important; text-align: right; }
 
-.statsfc_fixtures .statsfc_badge {			background-repeat: no-repeat; background-size: 20px 20px; line-height: 25px; }
-.statsfc_fixtures .statsfc_home {			background-position: center right; padding-right: 25px !important; }
-.statsfc_fixtures .statsfc_away {			background-position: center left; padding-left: 25px !important; }
+.sfc_fixtures .sfc_badge {       background-repeat: no-repeat; background-size: 20px 20px; line-height: 25px; }
+.sfc_fixtures .sfc_home {        background-position: center right; padding-right: 25px !important; }
+.sfc_fixtures .sfc_away {        background-position: center left; padding-left: 25px !important; }

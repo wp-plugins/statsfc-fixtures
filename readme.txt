@@ -4,15 +4,15 @@ Donate link:
 Tags: widget, football, soccer, fixtures, premier league, fa cup, league cup
 Requires at least: 3.3
 Tested up to: 4.0
-Stable tag: 1.6.1
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-This widget will place list of Premier League, FA Cup or League Cup fixtures in your website.
+This widget will display a list of football fixtures on your website, for a chosen competition or team.
 
 == Description ==
 
-Add a list of Premier League, FA Cup or League Cup fixtures to your WordPress website. To request a key sign up for your free trial at [statsfc.com](https://statsfc.com).
+Add a list of football fixtures to your WordPress website. To request a key sign up for your free trial at [statsfc.com](https://statsfc.com/sign-up).
 
 For a demo, check out [wp.statsfc.com/fixtures/](http://wp.statsfc.com/fixtures/).
 
@@ -87,6 +87,8 @@ You can also use the `[statsfc-fixtures]` shortcode, with the following options:
 **1.6**: Enabled ad-support
 
 **1.6.1**: Allow more discrete ads for ad-supported accounts
+
+**1.7**: Re-use the same JS as the standard widget
 
 == Upgrade notice ==
 
