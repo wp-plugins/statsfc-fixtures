@@ -3,7 +3,7 @@
 Plugin Name: StatsFC Fixtures
 Plugin URI: https://statsfc.com/widgets/fixtures
 Description: StatsFC Fixtures
-Version: 1.7
+Version: 1.8
 Author: Will Woodward
 Author URI: http://willjw.co.uk
 License: GPL2
@@ -27,7 +27,7 @@ License: GPL2
 
 define('STATSFC_FIXTURES_ID',      'StatsFC_Fixtures');
 define('STATSFC_FIXTURES_NAME',    'StatsFC Fixtures');
-define('STATSFC_FIXTURES_VERSION', '1.7');
+define('STATSFC_FIXTURES_VERSION', '1.8');
 
 /**
  * Adds StatsFC widget.
@@ -46,6 +46,9 @@ class StatsFC_Fixtures extends WP_Widget
         'from'        => '',
         'to'          => '',
         'limit'       => 0,
+        'highlight'   => '',
+        'show_badges' => true,
+        'show_dates'  => true,
         'timezone'    => 'Europe/London',
         'default_css' => true
     );
@@ -75,6 +78,9 @@ class StatsFC_Fixtures extends WP_Widget
         $from        = strip_tags($instance['from']);
         $to          = strip_tags($instance['to']);
         $limit       = strip_tags($instance['limit']);
+        $highlight   = strip_tags($instance['highlight']);
+        $show_badges = strip_tags($instance['show_badges']);
+        $show_dates  = strip_tags($instance['show_dates']);
         $timezone    = strip_tags($instance['timezone']);
         $default_css = strip_tags($instance['default_css']);
         ?>
@@ -123,6 +129,24 @@ class StatsFC_Fixtures extends WP_Widget
         </p>
         <p>
             <label>
+                Highlight team
+                <input class="widefat" name="<?php echo $this->get_field_name('highlight'); ?>" type="text" value="<?php echo esc_attr($highlight); ?>" placeholder="e.g., Liverpool, Manchester City">
+            </label>
+        </p>
+        <p>
+            <label>
+                Show badges?
+                <input type="checkbox" name="<?php echo $this->get_field_name('show_badges'); ?>"<?php echo ($show_badges == 'on' ? ' checked' : ''); ?>>
+            </label>
+        </p>
+        <p>
+            <label>
+                Show dates?
+                <input type="checkbox" name="<?php echo $this->get_field_name('show_dates'); ?>"<?php echo ($show_dates == 'on' ? ' checked' : ''); ?>>
+            </label>
+        </p>
+        <p>
+            <label>
                 Timezone
                 <select class="widefat" name="<?php echo $this->get_field_name('timezone'); ?>">
                     <?php
@@ -166,6 +190,9 @@ class StatsFC_Fixtures extends WP_Widget
         $instance['from']        = strip_tags($new_instance['from']);
         $instance['to']          = strip_tags($new_instance['to']);
         $instance['limit']       = strip_tags($new_instance['limit']);
+        $instance['highlight']   = strip_tags($new_instance['highlight']);
+        $instance['show_badges'] = strip_tags($new_instance['show_badges']);
+        $instance['show_dates']  = strip_tags($new_instance['show_dates']);
         $instance['timezone']    = strip_tags($new_instance['timezone']);
         $instance['default_css'] = strip_tags($new_instance['default_css']);
 
@@ -197,6 +224,9 @@ class StatsFC_Fixtures extends WP_Widget
             'from'        => $instance['from'],
             'to'          => $instance['to'],
             'limit'       => (int) $instance['limit'],
+            'highlight'   => $instance['highlight'],
+            'showBadges'  => (filter_var($instance['show_badges'], FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false'),
+            'showDates'   => (filter_var($instance['show_dates'], FILTER_VALIDATE_BOOLEAN) ? 'true' : 'false'),
             'timezone'    => $instance['timezone']
         );
 
@@ -218,7 +248,7 @@ class StatsFC_Fixtures extends WP_Widget
         // Enqueue widget JS
         $object = 'statsfc_fixtures_' . $unique_id;
 
-        $GLOBALS['statsfc_fixtures_init'] = '<script>' . PHP_EOL;
+        $GLOBALS['statsfc_fixtures_init']  = '<script>' . PHP_EOL;
         $GLOBALS['statsfc_fixtures_init'] .= 'var ' . $object . ' = new StatsFC_Fixtures(' . json_encode($key) . ');' . PHP_EOL;
         $GLOBALS['statsfc_fixtures_init'] .= $object . '.referer = ' . json_encode($referer) . ';' . PHP_EOL;
 

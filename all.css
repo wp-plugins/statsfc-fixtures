@@ -5,6 +5,7 @@
 .sfc_fixtures .sfc_team {        width: 50%; }
 .sfc_fixtures .sfc_home {        text-align: right; }
 .sfc_fixtures .sfc_vs {          text-align: center; }
+.sfc_fixtures .sfc_highlight {   font-weight: bold; }
 .sfc_fixtures span {             color: silver; }
 .sfc_fixtures .sfc_status {      font-weight: normal; float: left; }
 .sfc_fixtures .sfc_competition { font-weight: normal; float: right; }
