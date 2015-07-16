@@ -53,6 +53,18 @@ class StatsFC_Fixtures extends WP_Widget
         'default_css' => true
     );
 
+    private static $whitelist = array(
+        'competition',
+        'team',
+        'from',
+        'to',
+        'limit',
+        'highlight',
+        'showBadges',
+        'showDates',
+        'timezone'
+    );
+
     /**
      * Register widget with WordPress.
      */
@@ -212,7 +224,6 @@ class StatsFC_Fixtures extends WP_Widget
         extract($args);
 
         $title       = apply_filters('widget_title', $instance['title']);
-        $whitelist   = array('competition', 'team', 'from', 'to', 'limit', 'highlight', 'showBadges', 'showDates', 'timezone');
         $unique_id   = ++static::$count;
         $key         = $instance['key'];
         $referer     = (array_key_exists('HTTP_REFERER', $_SERVER) ? parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) : '');
@@ -252,7 +263,7 @@ class StatsFC_Fixtures extends WP_Widget
         $GLOBALS['statsfc_fixtures_init'] .= 'var ' . $object . ' = new StatsFC_Fixtures(' . json_encode($key) . ');' . PHP_EOL;
         $GLOBALS['statsfc_fixtures_init'] .= $object . '.referer = ' . json_encode($referer) . ';' . PHP_EOL;
 
-        foreach ($whitelist as $parameter) {
+        foreach (static::$whitelist as $parameter) {
             if (! array_key_exists($parameter, $options)) {
                 continue;
             }
