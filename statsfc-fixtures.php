@@ -98,68 +98,68 @@ class StatsFC_Fixtures extends WP_Widget
         ?>
         <p>
             <label>
-                Title
+                <?php _e('Title', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>">
             </label>
         </p>
         <p>
             <label>
-                Key
+                <?php _e('Key', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('key'); ?>" type="text" value="<?php echo esc_attr($key); ?>">
             </label>
         </p>
         <p>
             <label>
-                Competition
+                <?php _e('Competition', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('competition'); ?>" type="text" value="<?php echo esc_attr($competition); ?>" placeholder="e.g., EPL, CHP, FAC">
             </label>
         </p>
         <p>
             <label>
-                Team
+                <?php _e('Team', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('team'); ?>" type="text" value="<?php echo esc_attr($team); ?>" placeholder="e.g., Liverpool, Manchester City">
             </label>
         </p>
         <p>
             <label>
-                From
+                <?php _e('From', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('from'); ?>" type="text" value="<?php echo esc_attr($from); ?>" placeholder="e.g., <?php echo date('Y-m-d'); ?>, today">
             </label>
         </p>
         <p>
             <label>
-                To
+                <?php _e('To', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('to'); ?>" type="text" value="<?php echo esc_attr($to); ?>" placeholder="e.g., <?php echo date('Y-m-d'); ?>, +2 weeks, next Monday">
             </label>
         </p>
         <p>
             <label>
-                Limit
+                <?php _e('Limit', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('limit'); ?>" type="number" value="<?php echo esc_attr($limit); ?>" min="0" max="99"><br>
                 <small>Applies to single team only. Choose '0' for all fixtures.</small>
             </label>
         </p>
         <p>
             <label>
-                Highlight team
+                <?php _e('Highlight team', STATSFC_FIXTURES_ID); ?>
                 <input class="widefat" name="<?php echo $this->get_field_name('highlight'); ?>" type="text" value="<?php echo esc_attr($highlight); ?>" placeholder="e.g., Liverpool, Manchester City">
             </label>
         </p>
         <p>
             <label>
-                Show badges?
+                <?php _e('Show badges?', STATSFC_FIXTURES_ID); ?>
                 <input type="checkbox" name="<?php echo $this->get_field_name('show_badges'); ?>"<?php echo ($show_badges == 'on' ? ' checked' : ''); ?>>
             </label>
         </p>
         <p>
             <label>
-                Show dates?
+                <?php _e('Show dates?', STATSFC_FIXTURES_ID); ?>
                 <input type="checkbox" name="<?php echo $this->get_field_name('show_dates'); ?>"<?php echo ($show_dates == 'on' ? ' checked' : ''); ?>>
             </label>
         </p>
         <p>
             <label>
-                Timezone
+                <?php _e('Timezone', STATSFC_FIXTURES_ID); ?>
                 <select class="widefat" name="<?php echo $this->get_field_name('timezone'); ?>">
                     <?php
                     $zones = timezone_identifiers_list();
@@ -175,7 +175,7 @@ class StatsFC_Fixtures extends WP_Widget
         </p>
         <p>
             <label>
-                Use default styles?
+                <?php _e('Use default styles?', STATSFC_FIXTURES_ID); ?>
                 <input type="checkbox" name="<?php echo $this->get_field_name('default_css'); ?>"<?php echo ($default_css == 'on' ? ' checked' : ''); ?>>
             </label>
         </p>
