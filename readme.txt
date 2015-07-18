@@ -4,7 +4,7 @@ Donate link:
 Tags: widget, football, soccer, fixtures, premier league, fa cup, league cup
 Requires at least: 3.3
 Tested up to: 4.2.2
-Stable tag: 1.8
+Stable tag: 1.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,8 @@ You can also use the `[statsfc-fixtures]` shortcode, with the following options:
 **1.7**: Re-use the same JS as the standard widget
 
 **1.8**: Added `highlight`, `show_badges` and `show_dates` options
+
+**1.8.1**: Fixed bug with multiple widgets on one page
 
 == Upgrade notice ==
 
