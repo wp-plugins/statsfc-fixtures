@@ -129,7 +129,7 @@ class StatsFC_Fixtures extends WP_Widget
         <p>
             <label>
                 <?php _e('To', STATSFC_FIXTURES_ID); ?>
-                <input class="widefat" name="<?php echo $this->get_field_name('to'); ?>" type="text" value="<?php echo esc_attr($to); ?>" placeholder="e.g., <?php echo date('Y-m-d'); ?>, +2 weeks, next Monday">
+                <input class="widefat" name="<?php echo $this->get_field_name('to'); ?>" type="text" value="<?php echo esc_attr($to); ?>" placeholder="e.g., <?php echo date('Y-m-d', strtotime('+2 weeks')); ?>, +2 weeks, next Monday">
             </label>
         </p>
         <p>
